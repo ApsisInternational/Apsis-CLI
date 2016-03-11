@@ -1,6 +1,6 @@
 {
   "name": "apsis-cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Apsis CLI is a tool to make life at Apsis RnD happier.",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,8 @@
     "prepublish": "npm run-script compile; npm run-script copy-bash"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/ApsisInternational/Apsis-CLI.git"
+    "type": "git",
+    "url": "https://github.com/ApsisInternational/Apsis-CLI.git"
   },
   "keywords": [
     "apsis",
