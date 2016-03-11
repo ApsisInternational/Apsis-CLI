@@ -22,7 +22,7 @@ Once that is setup, run the tool with `$> apsis`. That will show you a menu of a
 Available actions:
 
 |Name|Alias|Description|
-|---|---|
+|---|---|---|
 |finish-branch|fb|Finish a feature or release branch in Git flow style.|
 |tfs|-|Open the current repo in TFS.|
 |pr|-|Open the current repo's PR page in TFS.|
