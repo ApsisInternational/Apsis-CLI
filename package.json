@@ -1,0 +1,39 @@
+{
+  "name": "apsis-cli",
+  "version": "0.0.0",
+  "description": "Apsis CLI is a tool to make life at Apsis RnD happier.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-bash": "cp -rf src/scripts/bash dist/scripts/bash",
+    "compile": "babel src --out-dir dist --optional runtime",
+    "start": "babel-node src/index.js",
+    "prepublish": "npm run-script compile; npm run-script copy-bash"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/ApsisInternational/Apsis-CLI.git"
+  },
+  "keywords": [
+    "apsis",
+    "cli"
+  ],
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "bin": {
+    "apsis": "dist/index.js"
+  },
+  "author": "Hampus Persson <hampus.persson@apsis.com>",
+  "license": "MIT",
+  "dependencies": {
+    "git-promise": "^0.3.0",
+    "open": "0.0.5",
+    "terminal-menu": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.5"
+  }
+}
