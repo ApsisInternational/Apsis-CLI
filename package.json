@@ -1,6 +1,6 @@
 {
   "name": "apsis-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Apsis CLI is a tool to make life at Apsis RnD happier.",
   "main": "index.js",
   "scripts": {
