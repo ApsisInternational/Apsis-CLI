@@ -19,7 +19,7 @@ Some tasks expects a configuration file to exist in `HOME/.apsis/config.json`. T
 
 Once that is setup, run the tool with `$> apsis`. That will show you a menu of all available actions. You can also access actions directly by using their command. Eg. `$> apsis tfs`.
 
-Available actions:
+## Available actions:
 
 |Name|Alias|Description|
 |---|---|---|
