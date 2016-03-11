@@ -4,7 +4,7 @@ const getUserHome = require('./utils.js').getUserHome;
 const config = require(getUserHome() + '/.apsis/config.json');
 
 module.exports = function finish() {
-    var ls = spawn('sh', [
+    const ls = spawn('sh', [
         __dirname + '/bash/finish.sh',
         config.slack.team,
         config.slack.token,
@@ -13,11 +13,14 @@ module.exports = function finish() {
         config.imgflip.password
     ]);
 
-    ls.stdout.on('data', function (data) {
-        console.log('' + data);
-    });
+    ls.stdout.on('data', output);
+    ls.stderr.on('data', output);
 
-    ls.stderr.on('data', function (data) {
-        console.log('Error: ' + data);
-    });
+    function output(data) {
+        const output = data.toString();
+
+        if (output.length > 0) {
+            console.log(output.trim());
+        }
+    }
 }
