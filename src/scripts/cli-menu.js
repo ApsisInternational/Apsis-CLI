@@ -4,6 +4,8 @@ const commands = [
     { text: 'FINISH THIS BRANCH (fb)', cmd: 'fb' },
     { text: 'OPEN TFS URL (tfs)', cmd: 'tfs' },
     { text: 'OPEN TFS PR URL (pr)', cmd: 'pr' },
+    { text: 'CHECK VERSION OF PACKAGE (wv)', cmd: 'wv' },
+    { text: 'CREATE NEW RELEASE (cr)', cmd: 'cr' },
 ];
 
 module.exports = function cliMenu() {
