@@ -12,7 +12,7 @@ module.exports = function cliMenu() {
     const utils = require('./utils.js');
     const runCommand = require('./run-command.js');
 
-    var menu = Menu({ width: 29, x: 4, y: 2 });
+    var menu = Menu({ width: 40, x: 4, y: 2 });
 
     menu.reset();
     menu.write('APSIS CLI\n');
