@@ -29,6 +29,8 @@
   "author": "Hampus Persson <hampus.persson@apsis.com>",
   "license": "MIT",
   "dependencies": {
+    "@hmps/create-release": "^0.1.1",
+    "@hmps/what-version": "^0.1.0",
     "git-promise": "^0.3.0",
     "open": "0.0.5",
     "prompt": "^1.0.0",
