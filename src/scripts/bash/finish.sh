@@ -92,22 +92,26 @@ function finishrelease()
     git pull origin $DEVELOP --no-edit || exit 1
 
     echo ""
-    echomessage "MAKING SURE RELEASE BRANCH IS UP TO DATE"
-    git checkout $WORKINGBRANCH || exit 1
-    git rebase $DEVELOP || exit 1
-
-    echo ""
     echomessage "CHECKING OUT AND UPDATING MASTER"
     git checkout $MASTER || exit 1
     git pull origin $MASTER --no-edit || exit 1
 
     echo ""
-    echomessage "MERGING RELEASE WITH MASTER"
-    git merge $WORKINGBRANCH -m"chore: Merge $WORKINGBRANCH into $MASTER" --no-ff || exit 1
+    echomessage "MAKING SURE RELEASE BRANCH IS UP TO DATE"
+    git checkout $WORKINGBRANCH || exit 1
+    git rebase $DEVELOP || exit 1
 
     echo ""
     echomessage "CREATING RELEASE TAG"
     git tag -a v$BRANCHSUFFIX -m"version $BRANCHSUFFIX" || exit 1
+
+    echo ""
+    echomessage "CHECKING OUT MASTER"
+    git checkout $MASTER || exit 1
+
+    echo ""
+    echomessage "MERGING RELEASE WITH MASTER"
+    git merge $WORKINGBRANCH -m"chore: Merge $WORKINGBRANCH into $MASTER" --no-ff || exit 1
 
     echo ""
     echomessage "PUBLISHING MASTER"
