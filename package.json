@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "copy-bash": "cp -rf src/scripts/bash dist/scripts/bash",
+    "copy-bash": "cp -rf src/scripts/bash dist/scripts/",
     "compile": "babel src --out-dir dist --optional runtime",
     "start": "babel-node src/index.js",
     "prepublish": "npm run-script compile; npm run-script copy-bash"
