@@ -185,7 +185,9 @@ function getRandomMeme()
         "$1 $2 was published?"
         "My team are the true MVPs today."
         )
-    index=$( jot -r 1  0 $((${#expressions[@]} - 1)) )
+    # index=$( jot -r 1  0 $((${#expressions[@]} - 1)) )
+    # Generate a random number between 0 and length of expressions list
+    index=$(grep -m1 -ao '[0-9]' /dev/urandom | sed s/0/$((${#expressions[@]} - 1))/ | head -n1)
     IMGFLIPID=${expressions[index]}
     IMGFLIPTEXT0=${first_text[index]}
     IMGFLIPTEXT1=${second_text[index]}
