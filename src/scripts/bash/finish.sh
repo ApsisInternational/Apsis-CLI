@@ -63,7 +63,7 @@ function finishfeature()
 
     echo ""
     echomessage "MERGING FEATURE BRANCH WITH DEVELOP"
-    git merge $WORKINGBRANCH -m"chore: Merge $WORKINGBRANCH into $DEVELOP" --no-ff || exit 1
+    git merge $WORKINGBRANCH -m"chore: Merge $WORKINGBRANCH into $DEVELOP" || exit 1
 
     echo ""
     echomessage "PUBLISHING DEVELOP"
@@ -111,7 +111,7 @@ function finishrelease()
 
     echo ""
     echomessage "MERGING RELEASE WITH MASTER"
-    git merge $WORKINGBRANCH -m"chore: Merge $WORKINGBRANCH into $MASTER" --no-ff || exit 1
+    git merge $WORKINGBRANCH -m"chore: Merge $WORKINGBRANCH into $MASTER" || exit 1
 
     echo ""
     echomessage "PUBLISHING MASTER"
@@ -127,7 +127,7 @@ function finishrelease()
 
     echo ""
     echomessage "MERGING RELEASE WITH DEVELOP"
-    git merge $WORKINGBRANCH -m"chore: Merge $WORKINGBRANCH into $DEVELOP" --no-ff || exit 1
+    git merge $WORKINGBRANCH -m"chore: Merge $WORKINGBRANCH into $DEVELOP" || exit 1
 
     echo ""
     echomessage "PUBLISHING DEVELOP"
