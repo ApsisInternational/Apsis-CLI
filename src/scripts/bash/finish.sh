@@ -11,13 +11,6 @@ BLACK="\033[0m"
 BLUE="\033[30m"
 WHITE="\033[37m"
 
-# Assign passed in params
-SLACKTEAM=$1
-SLACKTOKEN=$2
-SLACKCHANNEL=$3
-IMGFLIPUSER=$4
-IMGFLIPPASS=$5
-
 # HELPERS
 function echoerror()
 {
@@ -150,64 +143,6 @@ function finishrelease()
     echomessage "6. Deleted $WHITE$WORKINGBRANCH$BLUE"
 }
 
-function getRandomMeme()
-{
-    # 516587 = Sound of music
-    # 61532 = The most interesting man in the world
-    # 5496396 = leo toasting
-    # 563423 = that would be great
-    # 61582 = willy wonka
-    # 61544 = success kid
-    # 28251713 = oprah
-    # 61556 = grandma
-    # 15878567 = you the real mvp
-    # Get a random image id from a list of ids
-    declare -a expressions=('516587' '61532' '5496396' '563423' '61582' '61544' '28251713' '61556' '15878567')
-    declare -a first_text=(
-        "The hills are alive with the sound of"
-        "When I use $1, I always use"
-        "This is to you $1"
-        "It would be reaaaaally great if you updated to"
-        "Gosh, I just dunno. Maybe $1"
-        "OH YEAH!"
-        "YOU ALL GET A NEW VERSION OF"
-        "What is that dear? "
-        "We managed to publish $1 $2!"
-        )
-    declare -a second_text=(
-        "$1 $2"
-        "version $2"
-        "may v$2 be the best one yet"
-        "$1 $2 before you go home"
-        "is the golden ticket"
-        "$1 $2 was published"
-        "$1 ($2)"
-        "$1 $2 was published?"
-        "My team are the true MVPs today."
-        )
-    # index=$( jot -r 1  0 $((${#expressions[@]} - 1)) )
-    # Generate a random number between 0 and length of expressions list
-    index=$(grep -m1 -ao '[0-9]' /dev/urandom | sed s/0/$((${#expressions[@]} - 1))/ | head -n1)
-    IMGFLIPID=${expressions[index]}
-    IMGFLIPTEXT0=${first_text[index]}
-    IMGFLIPTEXT1=${second_text[index]}
-
-    RESPONSE=$(curl --data "username=$IMGFLIPUSER&password=$IMGFLIPPASS&template_id=$IMGFLIPID&text0=$IMGFLIPTEXT0&text1=$IMGFLIPTEXT1" -s https://api.imgflip.com/caption_image) > /dev/null
-    IMGFLIPURL=$(node -pe 'JSON.parse(process.argv[1]).data.url' $RESPONSE)
-}
-
-function sendMessageToSlack()
-{
-    # $1 should be the message to send
-    echo "Sending message to Slack..."
-
-    URL="https://$SLACKTEAM.slack.com/services/hooks/slackbot?token=$SLACKTOKEN&channel=%23$SLACKCHANNEL"
-
-    curl -Ss --data "$1" $"$URL" > /dev/null
-
-    echo "Done!"
-}
-
 # MAIN
 if branch=$(git symbolic-ref --short -q HEAD)
 then
@@ -221,10 +156,6 @@ then
     then
         # Do the gitf low dance
         finishrelease
-        # Get a random meme id for imgflip
-        getRandomMeme $(basename $(pwd)) $BRANCHSUFFIX
-        # Finally send a message to Slack
-        sendMessageToSlack "Greetings humans! Apsis component *$(basename $(pwd))@$BRANCHSUFFIX* was just published. :rocknroll: $IMGFLIPURL"
     elif [ $BRANCHPREFIX == 'feature' ]
     then
         finishfeature
