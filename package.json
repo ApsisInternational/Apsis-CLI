@@ -37,6 +37,8 @@
     "terminal-menu": "^2.1.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.6.5"
+    "babel-cli": "^6.6.5",
+    "eslint": "^2.10.2",
+    "eslint-config-apsis": "^2.1.0"
   }
 }
