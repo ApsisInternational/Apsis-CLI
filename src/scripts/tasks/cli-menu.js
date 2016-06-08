@@ -9,8 +9,8 @@ const commands = [
 ];
 
 module.exports = function cliMenu() {
-    const utils = require('./utils.js');
-    const runCommand = require('./run-command.js');
+    const utils = require('../utils.js');
+    const runCommand = require('../run-command.js');
 
     var menu = Menu({ width: 40, x: 4, y: 2 });
 

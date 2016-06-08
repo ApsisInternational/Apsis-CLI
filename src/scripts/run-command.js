@@ -1,7 +1,7 @@
-const finish = require('./finish.js');
-const tfs = require('./tfs.js');
-const menu = require('./cli-menu.js');
-const config = require('./config.js');
+const finish = require('./tasks/finish.js');
+const tfs = require('./tasks/tfs.js');
+const menu = require('./tasks/cli-menu.js');
+const config = require('./tasks/config.js');
 const whatVersion = require('@hmps/what-version');
 const createRelease = require('@hmps/create-release');
 
