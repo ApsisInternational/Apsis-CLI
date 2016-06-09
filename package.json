@@ -34,6 +34,7 @@
     "git-promise": "^0.3.0",
     "open": "0.0.5",
     "prompt": "^1.0.0",
+    "request": "^2.72.0",
     "terminal-menu": "^2.1.1"
   },
   "devDependencies": {
