@@ -15,9 +15,9 @@ function finish() {
     ls.on('close', (exitCode) => {
 
         if (exitCode === 0) {
-            const pkg = require(`${process.cwd()}/package.json`);
             git("rev-parse --abbrev-ref HEAD").then(function (branch) {
                 if (branch.indexOf('release/')) {
+                    const pkg = require(`${process.cwd()}/package.json`);
                     postToSlack(pkg.name, pkg.version, '#usingfrontend');
                 }
             });
