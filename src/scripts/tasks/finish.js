@@ -1,3 +1,5 @@
+const git = require('git-promise');
+
 const spawn = require('child_process').spawn;
 const postToSlack = require('./slack.js');
 
@@ -14,7 +16,11 @@ function finish() {
 
         if (exitCode === 0) {
             const pkg = require(`${process.cwd()}/package.json`);
-            postToSlack(pkg.name, pkg.version, '#usingfrontend');
+            git("rev-parse --abbrev-ref HEAD").then(function (branch) {
+                if (branch.indexOf('release/')) {
+                    postToSlack(pkg.name, pkg.version, '#usingfrontend');
+                }
+            });
         }
     })
 
