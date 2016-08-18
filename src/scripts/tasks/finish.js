@@ -16,7 +16,7 @@ function finish() {
 
         if (exitCode === 0) {
             git("rev-parse --abbrev-ref HEAD").then(function (branch) {
-                if (branch.indexOf('release/')) {
+                if (branch.indexOf('release/') !== -1) {
                     const pkg = require(`${process.cwd()}/package.json`);
                     postToSlack(pkg.name, pkg.version, '#usingfrontend');
                 }
