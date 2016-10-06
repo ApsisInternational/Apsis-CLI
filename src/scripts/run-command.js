@@ -1,12 +1,15 @@
-const finish = require('./tasks/finish.js');
-const tfs = require('./tasks/tfs.js');
-const menu = require('./tasks/cli-menu.js');
-const config = require('./tasks/config.js');
-const whatVersion = require('@hmps/what-version');
-const createRelease = require('@hmps/create-release');
+'use strict';
+
+var finish = require('./tasks/finish.js');
+var tfs = require('./tasks/tfs.js');
+var menu = require('./tasks/cli-menu.js');
+var config = require('./tasks/config.js');
+var postToSlack = require('./tasks/slack.js');
+var whatVersion = require('@hmps/what-version');
+var createRelease = require('@hmps/create-release');
 
 module.exports = function runCommand(cmd) {
-    switch(cmd) {
+    switch (cmd) {
         case 'finish-branch':
         case 'fb':
             finish();
@@ -29,8 +32,12 @@ module.exports = function runCommand(cmd) {
         case 'cr':
             createRelease();
             break;
+        case 'post-changelog':
+            var pkg = require(process.cwd() + '/package.json');
+            postToSlack(pkg.name, pkg.version);
+            break;
         default:
             menu();
             break;
     }
-}
+};
