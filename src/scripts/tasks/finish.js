@@ -1,31 +1,39 @@
-const git = require('git-promise');
+'use strict';
 
-const spawn = require('child_process').spawn;
-const postToSlack = require('./slack.js');
+var git = require('git-promise');
+
+var spawn = require('child_process').spawn;
+var postToSlack = require('./slack.js');
 
 module.exports = finish;
 
 function finish() {
-    const ls = spawn('sh', [
-        __dirname + '/../bash/finish.sh'
-    ]);
+    var ls;
+    var releaseBranch = false;
 
-    ls.stdout.on('data', output);
-    ls.stderr.on('data', output);
-    ls.on('close', (exitCode) => {
+    git("rev-parse --abbrev-ref HEAD").then(function (branch) {
+        console.log('Branch name: ', branch);
+        console.log('Indexof release/', branch.indexOf('release/'));
 
-        if (exitCode === 0) {
-            git("rev-parse --abbrev-ref HEAD").then(function (branch) {
-                if (branch.indexOf('release/') !== -1) {
-                    const pkg = require(`${process.cwd()}/package.json`);
-                    postToSlack(pkg.name, pkg.version, '#usingfrontend');
-                }
-            });
+        if (branch.indexOf('release/') !== -1) {
+            releaseBranch = true;
         }
-    })
+
+        ls = spawn('sh', [__dirname + '/../bash/finish.sh']);
+
+        ls.stdout.on('data', output);
+        ls.stderr.on('data', output);
+        ls.on('close', function (exitCode) {
+            if (exitCode === 0 && releaseBranch) {
+                var pkg = require(process.cwd() + '/package.json');
+                postToSlack(pkg.name, pkg.version);
+            }
+        });
+    });
+
 
     function output(data) {
-        const output = data.toString();
+        var output = data.toString();
 
         if (output.length > 0) {
             console.log(output.trim());

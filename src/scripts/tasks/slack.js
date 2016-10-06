@@ -1,21 +1,21 @@
-const request = require('request');
-const getChangelogObject = require('./parse-changelog');
+'use strict';
 
-const prodUrl = 'https://hooks.slack.com/services/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';
-const testUrl = 'https://hooks.slack.com/services/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';
+var request = require('request');
+var getChangelogObject = require('./parse-changelog');
+
+var prodUrl = 'https://hooks.slack.com/services/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';
+var testUrl = 'https://hooks.slack.com/services/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';
 
 module.exports = postToSlack;
 
-function postToSlack(component, version, channel) {
-    const changelog = getChangelogObject({name: component, version})
-        .then(response => {
-            sendMessageToSlack(response, channel);
-        });
+function postToSlack(component, version, isTest) {
+    var changelog = getChangelogObject({ name: component, version: version }).then(function (response) {
+        sendMessageToSlack(response, isTest);
+    });
 }
 
-
-function sendMessageToSlack(changelog, channel) {
-    const attachments = [];
+function sendMessageToSlack(changelog, isTest) {
+    var attachments = [];
 
     if (changelog.bugs.length) {
         attachments.push({
@@ -41,18 +41,18 @@ function sendMessageToSlack(changelog, channel) {
         });
     }
 
-    console.log('Posting message to #usingfrontend.');
+    console.log('Posting message to Slack.');
 
     request.post({
-        url: prodUrl,
+        url: isTest ? testUrl : prodUrl,
         body: JSON.stringify({
             "username": "Foxtrot ReleaseBot",
-            "text": `*Greetings humans! Apsis component ${changelog.component.name}@${changelog.component.version}​ was just published.* :rocknroll::rocket::tada: \n These are the changes in this release:`,
+            "text": '*Greetings humans! Apsis component ' + changelog.component.name + '@' + changelog.component.version + '​ was just published.* :rocknroll::rocket::tada: \n These are the changes in this release:',
             "attachments": attachments,
             "icon_emoji": ":tada:"
         }),
         headers: {
-            "cache-control": "no-cache",
-        },
+            "cache-control": "no-cache"
+        }
     });
 }
