@@ -1,10 +1,9 @@
 {
-  "name": "apsis-cli",
-  "version": "0.4.5",
+  "name": "@apsis/cli",
+  "version": "0.5.0",
   "description": "Apsis CLI is a tool to make life at Apsis RnD happier.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "copy-bash": "cp -rf src/scripts/bash dist/scripts/",
     "compile": "babel src --out-dir dist --optional runtime",
     "start": "babel-node src/index.js",
